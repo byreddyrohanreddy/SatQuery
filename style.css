@@ -1,0 +1,730 @@
+/* ==========================================================================
+   SatQuery AI — shared stylesheet (index.html + results.html)
+   Palette (exact):
+     Navy   #1F497D  headers, primary text
+     Blue   #0070C0  primary actions, links, optical/left accents
+     Purple #8064A2  secondary accents, SAR/right accents
+     Tints  #EAF1FB (blue) / #F1EEF6 (purple) — card backgrounds
+   ========================================================================== */
+
+:root {
+    --navy: #1F497D;
+    --blue: #0070C0;
+    --purple: #8064A2;
+    --blue-tint: #EAF1FB;
+    --purple-tint: #F1EEF6;
+    --white: #ffffff;
+    --text: #2b3a4a;
+    --muted: #5f6f80;
+    --border: #d4dde8;
+    --green: #2e7d32;
+    --amber: #b26a00;
+    --red: #c62828;
+    --radius: 10px;
+    --shadow: 0 2px 10px rgba(31, 73, 125, 0.08);
+    --shadow-lg: 0 6px 24px rgba(31, 73, 125, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--navy);
+    background: var(--white);
+    line-height: 1.55;
+}
+
+.wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.site-header {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    /* One permitted subtle hero treatment: a very light blue wash behind the header */
+    background: linear-gradient(180deg, var(--blue-tint) 0%, rgba(234, 241, 251, 0) 100%);
+}
+
+.wordmark {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    color: var(--navy);
+}
+
+.wordmark span {
+    color: var(--blue);
+}
+
+.tagline {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+}
+
+.api-status {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #9aa7b5;
+}
+
+.status-dot.status-ok {
+    background: var(--green);
+}
+
+.status-dot.status-bad {
+    background: var(--red);
+}
+
+/* ── Cards ──────────────────────────────────────────────────────────────── */
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+}
+
+.card h2,
+.h2-label {
+    display: block;
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.small {
+    font-size: 0.85rem;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+
+.btn {
+    display: inline-block;
+    font: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #005a99;
+}
+
+.btn-primary:disabled {
+    background: #a9c4d9;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: var(--blue-tint);
+    color: var(--navy);
+    border-color: var(--border);
+}
+
+.btn-secondary:hover {
+    background: #dbe9f8;
+}
+
+/* Visible focus state for every interactive element (a11y) */
+a:focus-visible,
+button:focus-visible,
+.dropzone:focus-visible,
+textarea:focus-visible,
+input[type="file"]:focus-visible {
+    outline: 3px solid rgba(0, 112, 192, 0.45);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.btn-run {
+    display: block;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 14px 20px;
+    margin-bottom: 22px;
+}
+
+/* ── Sample buttons ─────────────────────────────────────────────────────── */
+
+.sample-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* ── Drop zones ─────────────────────────────────────────────────────────── */
+
+.drop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.dropzone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--blue-tint);
+    padding: 18px;
+    min-height: 210px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+#drop2 {
+    background: var(--purple-tint);
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+    border-color: var(--blue);
+    background: #deebf9;
+}
+
+#drop2:hover,
+#drop2.drag-over {
+    border-color: var(--purple);
+    background: #e8e1f1;
+}
+
+.dz-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.dz-label em {
+    font-weight: 400;
+    font-style: normal;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.dz-prompt {
+    margin: 0 0 4px;
+    font-weight: 600;
+}
+
+.dz-preview img {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    background: #0f1c2b;
+    border-radius: 6px;
+}
+
+.dz-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.dz-name {
+    font-size: 0.85rem;
+    color: var(--text);
+    word-break: break-all;
+}
+
+.dz-remove {
+    font: inherit;
+    font-size: 0.82rem;
+    background: none;
+    border: none;
+    color: var(--red);
+    cursor: pointer;
+    padding: 4px 6px;
+    white-space: nowrap;
+}
+
+.dz-remove:hover {
+    text-decoration: underline;
+}
+
+/* ── Query textarea ─────────────────────────────────────────────────────── */
+
+textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--navy);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    resize: vertical;
+    min-height: 110px;
+    margin-top: 4px;
+}
+
+textarea:focus {
+    border-color: var(--blue);
+    outline-offset: 0;
+}
+
+textarea::placeholder {
+    color: #8b99a8;
+}
+
+/* ── Error banner ───────────────────────────────────────────────────────── */
+
+.error-banner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fdecea;
+    border: 1px solid #f5c6c0;
+    border-left: 5px solid var(--red);
+    color: #8a1f16;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 22px;
+}
+
+.error-banner[hidden] {
+    display: none !important;
+}
+
+.banner-close {
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 4px;
+}
+
+/* ── Agentic loading sequence ───────────────────────────────────────────── */
+
+.loading-panel {
+    background: var(--blue-tint);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 22px;
+}
+
+.loading-title {
+    margin: 0 0 12px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    opacity: 0.35;
+    transition: opacity 0.4s ease, color 0.4s ease;
+}
+
+.step-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    display: inline-block;
+    flex: none;
+    position: relative;
+}
+
+/* Active step: filled, pulsing dot */
+.step.active {
+    opacity: 1;
+    color: var(--navy);
+}
+
+.step.active .step-dot {
+    background: var(--blue);
+    animation: pulse 1.1s ease-in-out infinite;
+}
+
+/* Completed step: green check */
+.step.done {
+    opacity: 1;
+    color: var(--navy);
+}
+
+.step.done .step-dot {
+    border-color: var(--green);
+    background: var(--green);
+    animation: none;
+}
+
+.step.done .step-dot::after {
+    content: "";
+    position: absolute;
+    left: 3.5px;
+    top: 0.5px;
+    width: 4px;
+    height: 7px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 112, 192, 0.45);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(0, 112, 192, 0);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   RESULTS PAGE
+   ════════════════════════════════════════════════════════════════════════ */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 24px;
+}
+
+.empty-state .btn {
+    margin-top: 18px;
+}
+
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.image-figure {
+    margin: 0;
+    flex: 1 1 300px;
+    min-width: 0;
+}
+
+.image-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #0f1c2b;
+}
+
+.image-figure figcaption {
+    margin-top: 8px;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 0.95rem;
+}
+
+/* ── Visual evidence overlay ──────────────────────────────────────────────
+   The .evidence-overlay div is sized in JS to exactly match the image's
+   DISPLAYED pixel box, so API coordinates (normalized 0-1) become simple
+   percentages of the overlay. See attachOverlay() in script.js.          */
+
+.evidence-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    /* never blocks clicks/hover on the image */
+}
+
+.ev-box {
+    position: absolute;
+    border: 2px solid var(--blue);
+    background: rgba(0, 112, 192, 0.14);
+    border-radius: 3px;
+}
+
+.ev-box.ev-box-change {
+    border-color: var(--purple);
+    background: rgba(128, 100, 162, 0.16);
+}
+
+.ev-label {
+    position: absolute;
+    top: -22px;
+    left: -2px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 4px 7px;
+    border-radius: 3px 3px 3px 0;
+    white-space: nowrap;
+}
+
+.ev-box-change .ev-label {
+    background: var(--purple);
+}
+
+/* ── Answer card ────────────────────────────────────────────────────────── */
+
+.answer-card {
+    border-left: 5px solid var(--blue);
+}
+
+.answer-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--navy);
+    margin: 6px 0 0;
+    white-space: pre-wrap;
+}
+
+/* ── Confidence indicator ───────────────────────────────────────────────── */
+
+.conf-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.conf-badge {
+    font-weight: 800;
+    font-size: 1.05rem;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: #fff;
+    flex: none;
+}
+
+.conf-high {
+    background: var(--green);
+}
+
+.conf-mid {
+    background: var(--amber);
+}
+
+.conf-low {
+    background: var(--red);
+}
+
+.conf-track {
+    flex: 1 1 180px;
+    height: 12px;
+    background: #e3eaf2;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.conf-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+.conf-fill.conf-high {
+    background: var(--green);
+}
+
+.conf-fill.conf-mid {
+    background: var(--amber);
+}
+
+.conf-fill.conf-low {
+    background: var(--red);
+}
+
+.conf-basis {
+    width: 100%;
+    margin: 4px 0 0;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--muted);
+}
+
+/* ── Execution trace panel (the core differentiator) ───────────────────── */
+
+.trace-card {
+    border: 2px solid var(--navy);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(180deg, var(--purple-tint) 0%, #ffffff 140px);
+}
+
+.trace-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 8px 18px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.trace-row:last-child {
+    border-bottom: none;
+}
+
+.trace-key {
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+    padding-top: 2px;
+}
+
+.trace-val {
+    color: var(--navy);
+    word-break: break-word;
+}
+
+.trace-val.mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.9rem;
+}
+
+.route-pill {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 11px;
+    border-radius: 999px;
+    color: #fff;
+    margin-right: 8px;
+}
+
+.route-llm {
+    background: var(--blue);
+}
+
+.route-fallback {
+    background: var(--amber);
+}
+
+.chip {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin: 2px 4px 2px 0;
+    background: var(--blue-tint);
+    color: var(--navy);
+    border: 1px solid var(--border);
+}
+
+.chip-warn {
+    background: #fdf3e0;
+    border-color: #f0d9a8;
+    color: var(--amber);
+}
+
+.param-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.param-list li {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88rem;
+}
+
+.warn-list {
+    margin: 6px 0 0;
+    padding-left: 20px;
+    color: var(--amber);
+}
+
+.again-row {
+    text-align: center;
+    margin: 8px 0 40px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+    .drop-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trace-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .wordmark {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .step,
+    .step-dot,
+    .conf-fill {
+        transition: none;
+        animation: none;
+    }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatQuery AI — Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-results">
+
+    <header class="site-header">
+        <div class="wrap">
+            <div class="wordmark">SatQuery <span>AI</span></div>
+            <p class="tagline">Agentic Vision-Language Assistant for Multi-Sensor Satellite Imagery</p>
+        </div>
+    </header>
+
+    <!-- All result content is rendered by script.js so that every string from
+       the API is inserted with textContent (no HTML injection), and so the
+       empty state can replace everything when no session data exists. -->
+    <main class="wrap" id="resultsMain"></main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

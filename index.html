@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatQuery AI — Upload &amp; Query</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-upload">
+
+    <header class="site-header">
+        <div class="wrap">
+            <div class="wordmark">SatQuery <span>AI</span></div>
+            <p class="tagline">Agentic Vision-Language Assistant for Multi-Sensor Satellite Imagery</p>
+            <div class="api-status" id="apiStatus" role="status" aria-live="polite">
+                <span class="status-dot status-unknown" id="statusDot"></span>
+                <span id="statusText">Checking API connection…</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <!-- ── Sample demos: the primary demo-safety feature ────────────────── -->
+        <section class="card" aria-labelledby="demoHeading">
+            <h2 id="demoHeading">Quick demo</h2>
+            <p class="muted">One click loads sample imagery and a matching question — no manual steps needed.</p>
+            <div class="sample-row">
+                <button type="button" class="btn btn-secondary" data-sample="single">Single Image Demo</button>
+                <button type="button" class="btn btn-secondary" data-sample="fusion">Optical + SAR Demo</button>
+                <button type="button" class="btn btn-secondary" data-sample="change">Change Detection Demo</button>
+            </div>
+            <p class="muted small" id="sampleNote" hidden></p>
+        </section>
+
+        <!-- ── Upload area ──────────────────────────────────────────────────── -->
+        <section class="card" aria-labelledby="uploadHeading">
+            <h2 id="uploadHeading">Upload imagery</h2>
+            <div class="drop-grid">
+
+                <div class="dropzone" id="drop1" tabindex="0" role="button"
+                    aria-label="Image 1 upload, required. Activate to browse, or drag and drop a file.">
+                    <span class="dz-label">Image 1 <em>(required)</em></span>
+                    <input type="file" id="file1" accept=".jpg,.jpeg,.png,.tif,.tiff,image/jpeg,image/png,image/tiff"
+                        hidden>
+                    <div class="dz-body" id="body1">
+                        <p class="dz-prompt">Drag &amp; drop an image here, or click to browse</p>
+                        <p class="muted small">Optical or SAR — JPG, PNG, TIFF</p>
+                    </div>
+                    <div class="dz-preview" id="preview1" hidden>
+                        <img id="thumb1" alt="Preview of Image 1">
+                        <div class="dz-meta">
+                            <span class="dz-name" id="name1"></span>
+                            <button type="button" class="dz-remove" id="remove1" aria-label="Remove image 1">&#10005;
+                                remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropzone" id="drop2" tabindex="0" role="button"
+                    aria-label="Image 2 upload, optional. Activate to browse, or drag and drop a file.">
+                    <span class="dz-label">Image 2 <em>(optional)</em></span>
+                    <input type="file" id="file2" accept=".jpg,.jpeg,.png,.tif,.tiff,image/jpeg,image/png,image/tiff"
+                        hidden>
+                    <div class="dz-body" id="body2">
+                        <p class="dz-prompt">Drag &amp; drop a second image here, or click to browse</p>
+                        <p class="muted small">Optional — providing it unlocks optical&#8594;SAR fusion and bi-temporal
+                            change analysis.</p>
+                    </div>
+                    <div class="dz-preview" id="preview2" hidden>
+                        <img id="thumb2" alt="Preview of Image 2">
+                        <div class="dz-meta">
+                            <span class="dz-name" id="name2"></span>
+                            <button type="button" class="dz-remove" id="remove2" aria-label="Remove image 2">&#10005;
+                                remove</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Query input ──────────────────────────────────────────────────── -->
+        <section class="card" aria-labelledby="queryHeading">
+            <label for="queryText" id="queryHeading" class="h2-label">Ask a question about your imagery</label>
+            <textarea id="queryText" rows="4" aria-describedby="queryHint"></textarea>
+            <p class="muted small" id="queryHint">
+                Plain language works best — e.g. &#8220;Highlight the water body in this image&#8221;
+                or &#8220;What changed between these two dates?&#8221;
+            </p>
+        </section>
+
+        <!-- ── Submit ───────────────────────────────────────────────────────── -->
+        <button type="button" class="btn btn-primary btn-run" id="runBtn" disabled>Run Query</button>
+
+        <!-- ── Error banner (inline, never a silent failure) ────────────────── -->
+        <div class="error-banner" id="errorBanner" role="alert" hidden>
+            <span id="errorText"></span>
+            <button type="button" class="banner-close" id="errorClose"
+                aria-label="Dismiss error message">&#10005;</button>
+        </div>
+
+        <!-- ── Agentic loading sequence ─────────────────────────────────────── -->
+        <div class="loading-panel" id="loadingPanel" hidden aria-live="polite">
+            <p class="loading-title">SatQuery agent is working</p>
+            <ol class="steps" id="steps">
+                <li class="step" data-step><span class="step-dot"></span>Validating input</li>
+                <li class="step" data-step><span class="step-dot"></span>Routing to specialist model</li>
+                <li class="step" data-step><span class="step-dot"></span>Running analysis</li>
+            </ol>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
