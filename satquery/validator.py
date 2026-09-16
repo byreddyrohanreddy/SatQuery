@@ -128,8 +128,21 @@ def load_image_as_pil(source: Union[str, Path, bytes, io.BytesIO], filename: str
             if raw_bytes is not None:
                 np_buf = np.frombuffer(raw_bytes, np.uint8)
                 arr = cv2.imdecode(np_buf, cv2.IMREAD_UNCHANGED)
+                # If OpenCV decoded as 2D grayscale, verify if it actually has distinct color channels
+                if arr is not None and arr.ndim == 2:
+                    arr_color = cv2.imdecode(np_buf, cv2.IMREAD_ANYDEPTH | cv2.IMREAD_COLOR)
+                    if arr_color is not None and arr_color.ndim == 3 and arr_color.shape[2] == 3:
+                        b, g, r = arr_color[:, :, 0], arr_color[:, :, 1], arr_color[:, :, 2]
+                        if not (np.array_equal(b, g) and np.array_equal(g, r)):
+                            arr = arr_color
             elif isinstance(source, (str, Path)):
                 arr = cv2.imread(str(source), cv2.IMREAD_UNCHANGED)
+                if arr is not None and arr.ndim == 2:
+                    arr_color = cv2.imread(str(source), cv2.IMREAD_ANYDEPTH | cv2.IMREAD_COLOR)
+                    if arr_color is not None and arr_color.ndim == 3 and arr_color.shape[2] == 3:
+                        b, g, r = arr_color[:, :, 0], arr_color[:, :, 1], arr_color[:, :, 2]
+                        if not (np.array_equal(b, g) and np.array_equal(g, r)):
+                            arr = arr_color
             else:
                 arr = None
 
