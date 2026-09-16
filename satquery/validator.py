@@ -41,14 +41,31 @@ except ImportError:
 
 
 def _array_to_pil(arr: np.ndarray) -> Image.Image:
-    """Normalize numeric arrays (e.g. uint16/float GeoTIFF) and convert to PIL Image."""
+    """
+    Normalize numeric arrays (e.g. uint16/float GeoTIFF) using a 2%-98% percentile
+    cumulative contrast stretch per channel, which is the remote-sensing standard
+    to preserve vivid color saturation without atmospheric glare/cloud washout.
+    """
     if arr.dtype != np.uint8:
-        arr_min = float(arr.min())
-        arr_max = float(arr.max())
-        if arr_max > arr_min:
-            norm = ((arr - arr_min) / (arr_max - arr_min) * 255.0).astype(np.uint8)
-        else:
+        if arr.ndim == 2:
+            p2, p98 = np.percentile(arr.astype(float), (2, 98))
+            if p98 > p2:
+                clipped = np.clip(arr.astype(float), p2, p98)
+                norm = ((clipped - p2) / (p98 - p2) * 255.0).astype(np.uint8)
+            else:
+                norm = np.clip(arr, 0, 255).astype(np.uint8)
+        elif arr.ndim == 3:
             norm = np.zeros_like(arr, dtype=np.uint8)
+            for c in range(arr.shape[2]):
+                ch = arr[:, :, c].astype(float)
+                p2, p98 = np.percentile(ch, (2, 98))
+                if p98 > p2:
+                    clipped = np.clip(ch, p2, p98)
+                    norm[:, :, c] = ((clipped - p2) / (p98 - p2) * 255.0).astype(np.uint8)
+                else:
+                    norm[:, :, c] = np.clip(ch, 0, 255).astype(np.uint8)
+        else:
+            norm = np.clip(arr, 0, 255).astype(np.uint8)
     else:
         norm = arr
 
